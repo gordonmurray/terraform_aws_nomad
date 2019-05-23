@@ -23,6 +23,10 @@
         "script": "files/apt.sh"
     },
     {
+      "type": "shell",
+      "script": "files/nomad.sh"
+    },
+    {
         "destination": "/home/ubuntu/nomad.hcl",
         "source": "files/nomad.hcl",
         "type": "file"
@@ -35,7 +39,6 @@
     {
         "type": "shell",
         "inline": [
-          "sudo mkdir /etc/nomad.d",
           "sudo mv /home/ubuntu/nomad.hcl /etc/nomad.d/nomad.hcl",
           "sudo mv /home/ubuntu/nomad.service /etc/systemd/system/nomad.service"
         ]

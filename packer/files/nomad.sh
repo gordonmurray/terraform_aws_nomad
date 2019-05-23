@@ -3,7 +3,7 @@
 set -ex
 
 sudo apt update
-audp apt install wget -y
+sudo apt install wget -y
 sudo apt install unzip -y
 
 # download and install nomad
