@@ -1,0 +1,44 @@
+{
+    "builders": [{
+      "type": "amazon-ebs",
+      "profile": "{{user `profile`}}",
+      "region": "{{user `region`}}",
+      "source_ami": "{{user `base_ami_id`}}",
+      "instance_type": "{{user `instance_type`}}",
+      "force_deregister": "true",
+      "force_delete_snapshot": "true",
+      "ssh_username": "ubuntu",
+      "ami_name": "{{user `ami_name`}}",
+      "vpc_id": "{{user `vpc_id`}}",
+      "subnet_id" : "{{user `subnet_id`}}",
+      "tags":
+        {
+          "Name": "{{user `ami_name`}}"
+        }
+    }],
+
+    "provisioners": [
+    {
+        "type": "shell",
+        "script": "files/apt.sh"
+    },
+    {
+        "destination": "/home/ubuntu/nomad.hcl",
+        "source": "files/nomad.hcl",
+        "type": "file"
+    }, 
+    {
+      "destination": "/home/ubuntu/nomad.service",
+      "source": "files/nomad.service",
+      "type": "file"
+    }, 
+    {
+        "type": "shell",
+        "inline": [
+          "sudo mkdir /etc/nomad.d",
+          "sudo mv /home/ubuntu/nomad.hcl /etc/nomad.d/nomad.hcl",
+          "sudo mv /home/ubuntu/nomad.service /etc/systemd/system/nomad.service"
+        ]
+    }
+  ]
+}

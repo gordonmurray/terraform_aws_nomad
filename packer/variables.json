@@ -1,0 +1,9 @@
+{
+    "ami_name": "nomad_ami",
+    "base_ami_id": "ami-08d658f84a6d84a80",
+    "profile": "default",
+    "region": "eu-west-1",
+    "instance_type": "m1.xlarge",
+    "vpc_id" : "vpc-xxxxx",
+    "subnet_id" : "subnet-xxxxx"
+}
