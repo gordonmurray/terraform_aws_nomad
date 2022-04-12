@@ -1,5 +1,6 @@
 {
-    "builders": [{
+  "builders": [
+    {
       "type": "amazon-ebs",
       "profile": "{{user `profile`}}",
       "region": "{{user `region`}}",
@@ -10,47 +11,37 @@
       "ssh_username": "ubuntu",
       "ami_name": "{{user `ami_name`}}",
       "vpc_id": "{{user `vpc_id`}}",
-      "subnet_id" : "{{user `subnet_id`}}",
-      "tags":
-        {
-          "Name": "{{user `ami_name`}}"
-        }
-    }],
-
-    "provisioners": [
+      "subnet_id": "{{user `subnet_id`}}",
+      "tags": {
+        "Name": "{{user `ami_name`}}"
+      }
+    }
+  ],
+  "provisioners": [
     {
-        "type": "shell",
-        "script": "files/apt.sh"
+      "type": "shell",
+      "script": "files/apt.sh"
     },
     {
       "type": "shell",
       "script": "files/nomad.sh"
     },
     {
-        "destination": "/home/ubuntu/nomad.hcl",
-        "source": "files/nomad.hcl",
-        "type": "file"
-    }, 
+      "destination": "/home/ubuntu/nomad.hcl",
+      "source": "files/nomad.hcl",
+      "type": "file"
+    },
     {
       "destination": "/home/ubuntu/server.hcl",
       "source": "files/server.hcl",
       "type": "file"
-  }, 
+    },
     {
-      "destination": "/home/ubuntu/nomad.service",
-      "source": "files/nomad.service",
-      "type": "file"
-    }, 
-    {
-        "type": "shell",
-        "inline": [
-          "sudo mv /home/ubuntu/server.hcl /etc/nomad.d/server.hcl",
-          "sudo mv /home/ubuntu/nomad.hcl /etc/nomad.d/nomad.hcl",
-          "sudo mv /home/ubuntu/nomad.service /etc/systemd/system/nomad.service",
-          "sudo systemctl enable nomad",
-          "sudo systemctl start nomad",
-          "sudo systemctl status nomad"
-        ]
+      "type": "shell",
+      "inline": [
+        "sudo mv /home/ubuntu/server.hcl /etc/nomad.d/server.hcl",
+        "sudo mv /home/ubuntu/nomad.hcl /etc/nomad.d/nomad.hcl"
+      ]
     }
   ]
 }

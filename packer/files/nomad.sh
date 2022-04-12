@@ -1,24 +1,9 @@
 #!/usr/bin/env bash
 
-set -ex
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 
-sudo apt update
-sudo apt install wget -y
-sudo apt install unzip -y
+sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 
-# download and install nomad
-wget https://releases.hashicorp.com/nomad/0.9.1/nomad_0.9.1_linux_amd64.zip
-wget https://releases.hashicorp.com/nomad/0.9.1/nomad_0.9.1_SHA256SUMS
-grep linux_amd64 nomad_*_SHA256SUMS | sha256sum -c -
-unzip nomad_*.zip
+sudo apt-get update && sudo apt-get install nomad -y
 
-sudo chown root:root nomad
-sudo mv nomad /usr/local/bin/
 nomad version
-
-nomad -autocomplete-install
-complete -C /usr/local/bin/nomad nomad
-
-sudo mkdir --parents /opt/nomad
-sudo mkdir --parents /etc/nomad.d
-sudo chmod 700 /etc/nomad.d

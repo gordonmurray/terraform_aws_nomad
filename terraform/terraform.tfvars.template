@@ -1,0 +1,8 @@
+my_ip_address      = ""
+aws_ami_account_id = ""
+vpc_id             = "vpc-xxxxxx"
+vpc_subnets = [
+  "subnet-xxxxx",
+  "subnet-xxxxx",
+  "subnet-xxxxx"
+]
